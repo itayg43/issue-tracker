@@ -1,8 +1,9 @@
 import { IssueStatusBadge, Link } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
-
 import IssuesToolbar from "./IssuesToolbar";
+
+export const dynamic = "force-dynamic";
 
 const IssuesPage = async () => {
   const issues = await getAllIssues();
