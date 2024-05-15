@@ -1,5 +1,5 @@
-const LoadingIssueDetailPage = () => {
+const LoadingIssueDetailsPage = () => {
   return <div>Loading...</div>;
 };
 
-export default LoadingIssueDetailPage;
+export default LoadingIssueDetailsPage;

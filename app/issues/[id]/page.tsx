@@ -8,7 +8,7 @@ type Props = {
   };
 };
 
-const IssueDetailPage = async ({ params }: Props) => {
+const IssueDetailsPage = async ({ params }: Props) => {
   const issue = await getIssueById(params.id);
 
   if (issue === null) notFound();
@@ -23,7 +23,7 @@ const IssueDetailPage = async ({ params }: Props) => {
   );
 };
 
-export default IssueDetailPage;
+export default IssueDetailsPage;
 
 const getIssueById = async (id: string) => {
   await delay(1000);
