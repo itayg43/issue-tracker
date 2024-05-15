@@ -1,7 +1,6 @@
 import { IssueStatusBadge, Link } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
-import delay from "delay";
 
 import IssuesToolbar from "./IssuesToolbar";
 
@@ -58,6 +57,5 @@ const IssuesPage = async () => {
 export default IssuesPage;
 
 const getAllIssues = async () => {
-  await delay(1000);
   return await prisma.issue.findMany();
 };
