@@ -1,6 +1,7 @@
 "use client";
 
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Callout, TextField } from "@radix-ui/themes";
@@ -62,6 +63,7 @@ const NewIssuePage = () => {
 
         <Button type="submit" disabled={isSubmitting}>
           Submit New Issue
+          {isSubmitting && <Spinner />}
         </Button>
       </form>
     </div>
