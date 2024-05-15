@@ -9,6 +9,8 @@ type Props = {
 };
 
 const EditIssuePage = async ({ params }: Props) => {
+  if (isNaN(parseInt(params.id))) notFound();
+
   const issue = await getIssueById(params.id);
 
   if (issue === null) notFound();

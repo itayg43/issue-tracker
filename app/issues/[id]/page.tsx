@@ -11,6 +11,8 @@ type Props = {
 };
 
 const IssueDetailsPage = async ({ params }: Props) => {
+  if (isNaN(parseInt(params.id))) notFound();
+
   const issue = await getIssueById(params.id);
 
   if (issue === null) notFound();
