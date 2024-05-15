@@ -17,7 +17,7 @@ const IssueDetailsPage = async ({ params }: Props) => {
   if (issue === null) notFound();
 
   return (
-    <div>
+    <div className="max-w-xl">
       <Heading>{issue.title}</Heading>
 
       <Flex gap="3" my="2">
