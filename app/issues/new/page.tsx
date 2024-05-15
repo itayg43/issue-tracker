@@ -58,8 +58,13 @@ const NewIssuePage = () => {
         <Controller
           control={control}
           name="description"
-          render={({ field }) => (
-            <SimpleMDE placeholder="Description" {...field} />
+          render={({ field: { value, onChange, onBlur } }) => (
+            <SimpleMDE
+              placeholder="Description"
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+            />
           )}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
