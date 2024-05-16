@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { PropsWithChildren } from "react";
 import "./globals.css";
 import NavBar from "./NavBar";
-import { Theme } from "@radix-ui/themes";
+import { Container, Theme } from "@radix-ui/themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +22,9 @@ const RootLayout = ({ children }: PropsWithChildren) => {
             <NavBar />
           </header>
 
-          <main className="p-5">{children}</main>
+          <main className="p-5">
+            <Container>{children}</Container>
+          </main>
         </Theme>
       </body>
     </html>
