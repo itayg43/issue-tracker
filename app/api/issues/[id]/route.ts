@@ -20,11 +20,7 @@ export async function PATCH(
     return NextResponse.json(validation.error.errors, { status: 400 });
   }
 
-  const issue = await prisma.issue.findUnique({
-    where: {
-      id: parseInt(params.id),
-    },
-  });
+  const issue = await getIssueById(parseInt(params.id));
 
   if (issue === null) {
     return NextResponse.json(
@@ -44,4 +40,41 @@ export async function PATCH(
   });
 
   return NextResponse.json(updatedIssue, { status: 200 });
+}
+
+export async function DELETE(
+  _: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  if (isNaN(parseInt(params.id))) {
+    return NextResponse.json(
+      { message: "The param id should be a number" },
+      { status: 400 }
+    );
+  }
+
+  const issue = await getIssueById(parseInt(params.id));
+
+  if (issue === null) {
+    return NextResponse.json(
+      { message: "No issue found with the given id" },
+      { status: 404 }
+    );
+  }
+
+  await prisma.issue.delete({
+    where: {
+      id: issue.id,
+    },
+  });
+
+  return NextResponse.json({}, { status: 200 });
+}
+
+async function getIssueById(id: number) {
+  return await prisma.issue.findUnique({
+    where: {
+      id,
+    },
+  });
 }
