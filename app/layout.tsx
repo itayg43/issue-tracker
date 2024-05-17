@@ -5,6 +5,7 @@ import { PropsWithChildren } from "react";
 import "./globals.css";
 import NavBar from "./NavBar";
 import { Container, Theme } from "@radix-ui/themes";
+import AuthProvider from "./auth/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,15 +18,17 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Theme>
-          <header>
-            <NavBar />
-          </header>
+        <AuthProvider>
+          <Theme>
+            <header>
+              <NavBar />
+            </header>
 
-          <main className="p-5">
-            <Container>{children}</Container>
-          </main>
-        </Theme>
+            <main className="p-5">
+              <Container>{children}</Container>
+            </main>
+          </Theme>
+        </AuthProvider>
       </body>
     </html>
   );
