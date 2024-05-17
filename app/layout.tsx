@@ -1,11 +1,12 @@
+import { Container, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { PropsWithChildren } from "react";
+import AuthProvider from "./auth/Provider";
 import "./globals.css";
 import NavBar from "./NavBar";
-import { Container, Theme } from "@radix-ui/themes";
-import AuthProvider from "./auth/Provider";
+import QueryClientProvider from "./QueryClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,17 +19,19 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <Theme>
-            <header>
-              <NavBar />
-            </header>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Theme>
+              <header>
+                <NavBar />
+              </header>
 
-            <main className="p-5">
-              <Container>{children}</Container>
-            </main>
-          </Theme>
-        </AuthProvider>
+              <main className="p-5">
+                <Container>{children}</Container>
+              </main>
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

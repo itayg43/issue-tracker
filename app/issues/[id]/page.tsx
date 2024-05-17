@@ -19,7 +19,7 @@ const IssueDetailsPage = async ({ params }: Props) => {
 
   if (isNaN(parseInt(params.id))) notFound();
 
-  const issue = await getIssueById(params.id);
+  const issue = await getIssueById(parseInt(params.id));
 
   if (issue === null) notFound();
 
@@ -44,10 +44,10 @@ const IssueDetailsPage = async ({ params }: Props) => {
 
 export default IssueDetailsPage;
 
-const getIssueById = async (id: string) => {
+const getIssueById = async (id: number) => {
   return await prisma.issue.findUnique({
     where: {
-      id: parseInt(id),
+      id,
     },
   });
 };
