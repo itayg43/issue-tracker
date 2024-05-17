@@ -14,7 +14,7 @@ type Props = {
 const AssigneeSelect = ({ issue }: Props) => {
   const { isLoading, isError, data: users } = useUsers();
 
-  const onValueChange = async (userId: string) => {
+  const onAssignIssue = async (userId: string) => {
     try {
       await axios.patch(`/api/issues/${issue.id}`, {
         assignedUserId: userId || null,
@@ -32,7 +32,7 @@ const AssigneeSelect = ({ issue }: Props) => {
     <>
       <Select.Root
         defaultValue={issue.assignedUserId || ""}
-        onValueChange={onValueChange}
+        onValueChange={onAssignIssue}
       >
         <Select.Trigger />
 
@@ -62,7 +62,7 @@ const useUsers = () =>
   useQuery({
     queryKey: ["users"],
     queryFn: async () => await getAllUsers(),
-    staleTime: 60 * 1000,
+    staleTime: 60 * 60 * 1000, // 1 hour
     retry: 3,
   });
 
