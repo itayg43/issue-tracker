@@ -1,8 +1,14 @@
 import prisma from "@/prisma/client";
 import { Flex, Grid } from "@radix-ui/themes";
+import { Metadata } from "next";
 import IssuesChart from "./IssuesChart";
 import IssuesSummary from "./IssuesSummary";
 import LatestIssues from "./LatestIssues";
+
+export const metadata: Metadata = {
+  title: "Issue Tracker - Dashboard",
+  description: "View a summary of project issues",
+};
 
 const Home = async () => {
   const [open, inProgress, closed] = await Promise.all([

@@ -14,6 +14,15 @@ type Props = {
   };
 };
 
+export const generateMetadata = async ({ params }: Props) => {
+  const issue = await getIssueById(parseInt(params.id));
+
+  return {
+    title: issue?.title,
+    description: `Details of issue ${issue?.id}`,
+  };
+};
+
 const IssueDetailsPage = async ({ params }: Props) => {
   const session = await getServerSession(authOptions);
 
