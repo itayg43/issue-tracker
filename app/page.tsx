@@ -1,19 +1,7 @@
-import Pagination from "./issues/list/Pagination";
+import LatestIssues from "./LatestIssues";
 
-type Props = {
-  searchParams: {
-    page: string;
-  };
-};
-
-const Home = ({ searchParams }: Props) => {
-  return (
-    <Pagination
-      itemCount={100}
-      pageSize={10}
-      currentPage={parseInt(searchParams.page)}
-    />
-  );
+const Home = () => {
+  return <LatestIssues />;
 };
 
 export default Home;
