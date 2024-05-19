@@ -1,44 +1,17 @@
-import { IssueStatusBadge } from "@/app/components";
 import prisma from "@/prisma/client";
-import { Issue, Status } from "@prisma/client";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
-import { Flex, Table } from "@radix-ui/themes";
-import Link from "next/link";
+import { Status } from "@prisma/client";
+import IssuesTable, { columnNames, IssueQuery } from "./IssuesTable";
 import IssuesToolbar from "./IssuesToolbar";
 import Pagination from "./Pagination";
+import { Flex } from "@radix-ui/themes";
 
 export const dynamic = "force-dynamic";
 
 type Props = {
-  searchParams: {
-    status: Status;
-    orderBy: keyof Issue;
-    page: string;
-  };
+  searchParams: IssueQuery;
 };
 
 const IssuesPage = async ({ searchParams }: Props) => {
-  const columns: {
-    label: string;
-    value: keyof Issue;
-    className?: string;
-  }[] = [
-    {
-      label: "Issue",
-      value: "title",
-    },
-    {
-      label: "Status",
-      value: "status",
-      className: "hidden md:table-cell",
-    },
-    {
-      label: "Created At",
-      value: "createdAt",
-      className: "hidden md:table-cell",
-    },
-  ];
-
   const validStatuses = Object.values(Status);
   const status = validStatuses.includes(searchParams.status)
     ? searchParams.status
@@ -46,9 +19,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
 
   const where = { status };
 
-  const orderBy = columns
-    .map((column) => column.value)
-    .includes(searchParams.orderBy)
+  const orderBy = columnNames.includes(searchParams.orderBy)
     ? { [searchParams.orderBy]: "asc" }
     : undefined;
 
@@ -61,80 +32,30 @@ const IssuesPage = async ({ searchParams }: Props) => {
   const issues = await getIssues(where, orderBy, skip, take);
 
   return (
-    <>
+    <Flex direction="column" gap="3">
       <IssuesToolbar />
 
-      <div className="my-5">
-        <Table.Root variant="surface">
-          <Table.Header>
-            <Table.Row>
-              {columns.map((column) => (
-                <Table.ColumnHeaderCell
-                  key={column.value}
-                  className={column.className}
-                >
-                  <Flex align="center" gap="1">
-                    <Link
-                      href={{
-                        query: {
-                          ...searchParams,
-                          orderBy: column.value,
-                        },
-                      }}
-                    >
-                      {column.label}
-                    </Link>
-
-                    {column.value === searchParams.orderBy && <ArrowUpIcon />}
-                  </Flex>
-                </Table.ColumnHeaderCell>
-              ))}
-            </Table.Row>
-          </Table.Header>
-
-          <Table.Body>
-            {issues.map((issue) => (
-              <Table.Row key={issue.id}>
-                <Table.Cell>
-                  <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
-
-                  <div className="block md:hidden">
-                    <IssueStatusBadge status={issue.status} />
-                  </div>
-                </Table.Cell>
-
-                <Table.Cell className="hidden md:table-cell">
-                  <IssueStatusBadge status={issue.status} />
-                </Table.Cell>
-
-                <Table.Cell className="hidden md:table-cell">
-                  {issue.createdAt.toDateString()}
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table.Root>
-      </div>
+      <IssuesTable searchParams={searchParams} issues={issues} />
 
       <Pagination
         itemCount={issuesCount}
         pageSize={pageSize}
         currentPage={page}
       />
-    </>
+    </Flex>
   );
 };
 
 export default IssuesPage;
 
-const getIssuesCount = async (where: {}) => {
+const getIssuesCount = async (where: object) => {
   return await prisma.issue.count({
     where,
   });
 };
 
 const getIssues = async (
-  where: {},
+  where: object,
   orderBy: { [key: string]: string } | undefined,
   skip: number,
   take: number
