@@ -3,6 +3,7 @@ import prisma from "@/prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import AssigneeSelect from "./AssigneeSelect";
 import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
@@ -13,6 +14,14 @@ type Props = {
     id: string;
   };
 };
+
+const getIssueById = cache((issueId: number) =>
+  prisma.issue.findUnique({
+    where: {
+      id: issueId,
+    },
+  })
+);
 
 export const generateMetadata = async ({ params }: Props) => {
   const issue = await getIssueById(parseInt(params.id));
@@ -52,11 +61,3 @@ const IssueDetailsPage = async ({ params }: Props) => {
 };
 
 export default IssueDetailsPage;
-
-const getIssueById = async (id: number) => {
-  return await prisma.issue.findUnique({
-    where: {
-      id,
-    },
-  });
-};
