@@ -1,5 +1,7 @@
+import Pagination from "./issues/list/Pagination";
+
 const Home = () => {
-  return <div>Dashboard Page</div>;
+  return <Pagination itemCount={100} pageSize={10} currentPage={1} />;
 };
 
 export default Home;
