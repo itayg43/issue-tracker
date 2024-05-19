@@ -1,18 +1,42 @@
-import { IssueStatusBadge, Link } from "@/app/components";
+import { IssueStatusBadge } from "@/app/components";
 import prisma from "@/prisma/client";
-import { Status } from "@prisma/client";
-import { Table } from "@radix-ui/themes";
+import { Issue, Status } from "@prisma/client";
+import { Flex, Table } from "@radix-ui/themes";
+import Link from "next/link";
 import IssuesToolbar from "./IssuesToolbar";
+import { ArrowUpIcon } from "@radix-ui/react-icons";
 
 export const dynamic = "force-dynamic";
 
 type Props = {
   searchParams: {
     status: Status;
+    orderBy: keyof Issue;
   };
 };
 
 const IssuesPage = async ({ searchParams }: Props) => {
+  const columns: {
+    label: string;
+    value: keyof Issue;
+    className?: string;
+  }[] = [
+    {
+      label: "Issue",
+      value: "title",
+    },
+    {
+      label: "Status",
+      value: "status",
+      className: "hidden md:table-cell",
+    },
+    {
+      label: "Created At",
+      value: "createdAt",
+      className: "hidden md:table-cell",
+    },
+  ];
+
   const validStatuses = Object.values(Status);
   const status = validStatuses.includes(searchParams.status)
     ? searchParams.status
@@ -29,15 +53,27 @@ const IssuesPage = async ({ searchParams }: Props) => {
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
+            {columns.map((column) => (
+              <Table.ColumnHeaderCell
+                key={column.value}
+                className={column.className}
+              >
+                <Flex align="center" gap="1">
+                  <Link
+                    href={{
+                      query: {
+                        ...searchParams,
+                        orderBy: column.value,
+                      },
+                    }}
+                  >
+                    {column.label}
+                  </Link>
 
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Status
-            </Table.ColumnHeaderCell>
-
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Created At
-            </Table.ColumnHeaderCell>
+                  {column.value === searchParams.orderBy && <ArrowUpIcon />}
+                </Flex>
+              </Table.ColumnHeaderCell>
+            ))}
           </Table.Row>
         </Table.Header>
 
