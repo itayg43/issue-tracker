@@ -1,6 +1,6 @@
 # Issue Tracker
 
-This app provides a streamlined interface for managing project issues, tailored for a team of coders.
+This app provides a streamlined and fully responsive interface for managing project issues, tailored for a team of coders.
 
 ### Key features include:
 
@@ -21,7 +21,7 @@ Deploy using: Vercel, Railway.
 docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_ROOT_HOST=% -e MYSQL_DATABASE=issue-tracker -d mysql/mysql-server
 ```
 
-2. Create a .env file and set the needed values as shown in the .env.example file.
+2. Create a .env file and set the required values as shown in the .env.example file.
 
 3. Run:
 ```
