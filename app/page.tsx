@@ -5,6 +5,8 @@ import IssuesChart from "./IssuesChart";
 import IssuesSummary from "./IssuesSummary";
 import LatestIssues from "./LatestIssues";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Issue Tracker - Dashboard",
   description: "View a summary of project issues",
