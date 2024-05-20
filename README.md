@@ -1,14 +1,12 @@
 # Issue Tracker
 
-This app provides a streamlined and fully responsive interface for managing project issues, tailored for a team of coders.
-
-### Key features include:
+This app provides a streamlined and fully responsive interface for managing project issues, tailored for a team of coders. Key features include:
 
 * Dashboard: Overview of open, in-progress, and closed issues.
   
 * Issues Listing: Detailed list of issues with filter, sort, and pagination functionality.
 
-* Issue Details: Each issue has a specific details page with edit, delete, and assign user functionalities (for authenticated users only).
+* Issue Details: Each issue has a specific details page with edit, delete, and assign user functionalities.
 
 Stack: Next.js (TypeScript), NextAuth (Google Provider), Prisma (MySQL).
 
