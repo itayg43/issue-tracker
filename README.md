@@ -12,7 +12,7 @@ Stack: Next.js (TypeScript), NextAuth (Google Provider), Prisma (MySQL).
 
 Link: https://issue-tracker-itayg43.vercel.app
 
-Deploy using: Vercel, Railway.
+Deployed using: Vercel, Railway.
 
 ## Setup Locally
 
