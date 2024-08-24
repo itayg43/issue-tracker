@@ -10,10 +10,6 @@ This app provides a streamlined and fully responsive interface for managing proj
 
 Stack: Next.js (TypeScript), NextAuth (Google Provider), Prisma (MySQL).
 
-Link: https://issue-tracker-itayg43.vercel.app
-
-Deployed using: Vercel, Railway.
-
 ## Setup Locally
 
 1. Run a MySQL server in a docker container:
